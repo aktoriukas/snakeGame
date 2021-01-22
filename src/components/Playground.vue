@@ -3,6 +3,7 @@
     <Snake-head
       v-bind:gameIsOn="gameIsOn"
       v-bind:facingDirection="facingDirection"
+      v-bind:lostGame="lostGame"
     />
   </div>
 </template>
@@ -21,10 +22,7 @@ export default {
     };
   },
   methods: {
-    // checkGame: async (gameIsOn) => {
-    //   console.log(gameIsOn);
-    // },
-    keyPressed(e) {
+    keyPressed: function (e) {
       switch (e.keyCode) {
         case 39:
           //right
@@ -50,9 +48,11 @@ export default {
           break;
       }
     },
+    lostGame() {
+      this.gameIsOn = false;
+    },
   },
   created() {
-    // this.checkGame(this.gameIsOn);
     window.addEventListener("keyup", (e) => this.keyPressed(e));
   },
 };
@@ -61,7 +61,8 @@ export default {
 <style scoped>
 #playground {
   background: cadetblue;
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  border: 10px solid black;
 }
 </style>

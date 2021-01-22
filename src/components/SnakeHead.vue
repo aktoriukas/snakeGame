@@ -14,9 +14,10 @@ export default {
       },
     };
   },
-  props: ["gameIsOn", "facingDirection"],
+  props: ["gameIsOn", "facingDirection", "lostGame"],
   methods: {
     moveForward: function async() {
+      if (!this.gameIsOn) clearInterval(this.intervalID);
       switch (this.facingDirection) {
         case 0:
           this.moveUp();
@@ -36,34 +37,33 @@ export default {
     },
     moveUp: function () {
       let newTop = Number(this.styles.top.slice(0, -1));
-      this.styles.top = `${--newTop}%`;
+      --newTop;
+      if (newTop === 1) this.lostGame();
+      this.styles.top = `${newTop}%`;
     },
     moveDown: function () {
       let newTop = Number(this.styles.top.slice(0, -1));
-      this.styles.top = `${++newTop}%`;
+      ++newTop;
+      if (newTop === 99) this.lostGame();
+      this.styles.top = `${newTop}%`;
     },
     moveLeft: function () {
       let newLeft = Number(this.styles.left.slice(0, -1));
-      this.styles.left = `${--newLeft}%`;
+      --newLeft;
+      if (newLeft === 1) this.lostGame();
+      this.styles.left = `${newLeft}%`;
     },
     moveRight: function () {
       let newLeft = Number(this.styles.left.slice(0, -1));
-      this.styles.left = `${++newLeft}%`;
+      ++newLeft;
+      if (newLeft === 99) this.lostGame();
+      this.styles.left = `${newLeft}%`;
     },
-    // getDigit: function (transform, nr) {
-    //   const newTransf = transform.split(",")[nr];
-    //   let number = "";
-    //   for (let i = 0; i < newTransf.length; i++) {
-    //     if (newTransf[i] == "-" || !isNaN(Number(newTransf[i]))) {
-    //       number += newTransf[i];
-    //     } else if (newTransf[i] === "%") return number;
-    //   }
-    // },
   },
   created() {
-    setInterval(() => {
+    this.intervalID = setInterval(() => {
       this.moveForward();
-    }, 500);
+    }, 50);
   },
 };
 </script>
@@ -71,6 +71,7 @@ export default {
 <style scoped>
 #snakeHead {
   position: absolute;
+  transition: all 0.05s ease;
   width: 1vh;
   height: 1vh;
   background-color: brown;
