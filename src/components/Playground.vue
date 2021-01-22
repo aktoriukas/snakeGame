@@ -28,21 +28,22 @@ export default {
       switch (e.keyCode) {
         case 39:
           //right
-          ++this.facingDirection;
+          this.facingDirection = 1;
           break;
 
         case 37:
           //left
-          --this.facingDirection;
-          this.facingDirection < 0 ? (this.facingDirection = 3) : "";
+          this.facingDirection = 3;
           break;
 
         case 38:
           //up
+          this.facingDirection = 0;
           break;
 
         case 40:
           //down
+          this.facingDirection = 2;
           break;
 
         default:

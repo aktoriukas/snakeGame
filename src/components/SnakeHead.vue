@@ -36,34 +36,34 @@ export default {
     },
     moveUp: function () {
       let newTop = Number(this.styles.top.slice(0, -1));
-      let oldTrnsfNr = this.getDigit(this.styles.transform, 1);
-      let newTrnsNr = --oldTrnsfNr;
-      this.replaceDigit(this.styles.transform, oldTrnsfNr, newTrnsNr, 1);
       this.styles.top = `${--newTop}%`;
     },
-    moveDown() {},
-    moveLeft() {},
-    moveRight() {},
-    replaceDigit: function (transform, oldDigit, digit, nr) {
-      let left = transform.split(",")[0];
-      let right = transform.split(",")[1];
-      let newTransf = transform.split(",")[nr];
-      return newTransf.replace(oldDigit, digit);
+    moveDown: function () {
+      let newTop = Number(this.styles.top.slice(0, -1));
+      this.styles.top = `${++newTop}%`;
     },
-    getDigit: function (transform, nr) {
-      const newTransf = transform.split(",")[nr];
-      let number = "";
-      for (let i = 0; i < newTransf.length; i++) {
-        if (newTransf[i] == "-" || !isNaN(Number(newTransf[i]))) {
-          number += newTransf[i];
-        } else if (newTransf[i] === "%") return number;
-      }
+    moveLeft: function () {
+      let newLeft = Number(this.styles.left.slice(0, -1));
+      this.styles.left = `${--newLeft}%`;
     },
+    moveRight: function () {
+      let newLeft = Number(this.styles.left.slice(0, -1));
+      this.styles.left = `${++newLeft}%`;
+    },
+    // getDigit: function (transform, nr) {
+    //   const newTransf = transform.split(",")[nr];
+    //   let number = "";
+    //   for (let i = 0; i < newTransf.length; i++) {
+    //     if (newTransf[i] == "-" || !isNaN(Number(newTransf[i]))) {
+    //       number += newTransf[i];
+    //     } else if (newTransf[i] === "%") return number;
+    //   }
+    // },
   },
   created() {
     setInterval(() => {
       this.moveForward();
-    }, 20000);
+    }, 500);
   },
 };
 </script>
