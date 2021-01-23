@@ -18,10 +18,16 @@ export default {
 html,
 body,
 #app {
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+.btn {
+  border: none;
+  background-color: #7b7b7b;
+  color: #83e6d7;
+  padding: 10px;
 }
 </style>

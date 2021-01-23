@@ -5,15 +5,18 @@
       v-bind:facingDirection="facingDirection"
       v-bind:lostGame="lostGame"
     />
+    <You-lost v-if="!gameIsOn" v-on:restartGame="restartGame" />
   </div>
 </template>
 
 <script>
+import YouLost from "./Notifications/YouLost.vue";
 import SnakeHead from "./SnakeHead.vue";
 export default {
   name: "Playground",
   components: {
     SnakeHead,
+    YouLost,
   },
   data() {
     return {
@@ -48,8 +51,12 @@ export default {
           break;
       }
     },
-    lostGame() {
+    lostGame: function () {
       this.gameIsOn = false;
+    },
+    restartGame: function () {
+      this.gameIsOn = true;
+      console.log(this.gameIsOn);
     },
   },
   created() {
@@ -61,8 +68,10 @@ export default {
 <style scoped>
 #playground {
   background: cadetblue;
-  width: 100%;
-  height: 100%;
+  width: 500px;
+  height: 500px;
   border: 10px solid black;
+  position: relative;
+  margin: auto;
 }
 </style>

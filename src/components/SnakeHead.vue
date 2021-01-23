@@ -35,36 +35,44 @@ export default {
           break;
       }
     },
+    resetSnake: function () {
+      this.styles = {
+        top: `50%`,
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      };
+    },
     moveUp: function () {
       let newTop = Number(this.styles.top.slice(0, -1));
       --newTop;
-      if (newTop === 1) this.lostGame();
       this.styles.top = `${newTop}%`;
+      if (newTop === 1) this.lostGame(), this.resetSnake();
     },
     moveDown: function () {
       let newTop = Number(this.styles.top.slice(0, -1));
       ++newTop;
-      if (newTop === 99) this.lostGame();
       this.styles.top = `${newTop}%`;
+      if (newTop === 99) this.lostGame(), this.resetSnake();
     },
     moveLeft: function () {
       let newLeft = Number(this.styles.left.slice(0, -1));
       --newLeft;
-      if (newLeft === 1) this.lostGame();
       this.styles.left = `${newLeft}%`;
+      if (newLeft === 1) this.lostGame(), this.resetSnake();
     },
     moveRight: function () {
       let newLeft = Number(this.styles.left.slice(0, -1));
       ++newLeft;
-      if (newLeft === 99) this.lostGame();
       this.styles.left = `${newLeft}%`;
+      if (newLeft === 99) this.lostGame(), this.resetSnake();
+    },
+    runGame: function () {
+      this.intervalID = setInterval(() => {
+        this.moveForward();
+      }, 50);
     },
   },
-  created() {
-    this.intervalID = setInterval(() => {
-      this.moveForward();
-    }, 50);
-  },
+  created: function () {},
 };
 </script>
 
